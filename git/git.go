@@ -52,3 +52,58 @@ func Holvagyok() error {
 	log.Infof(branch)
 	return nil
 }
+
+//Kiscica ...
+func Kiscica(args []string) error {
+	_, err := exec.Command("git", "add", ".").Output()
+	if err != nil {
+		return err
+	}
+	status, err := exec.Command("git", "status").Output()
+	if err != nil {
+		return err
+	}
+	statusLines := strings.Split(string(status), "\n")
+	var addedFiles []string
+	var modifiedFiles []string
+	for _, line := range statusLines {
+		if strings.Contains(line, "new file") {
+			s := strings.Split(line, " ")
+			addedFiles = append(addedFiles, s[len(s)-1])
+		}
+		if strings.Contains(line, "modified") {
+			s := strings.Split(line, " ")
+			modifiedFiles = append(modifiedFiles, s[len(s)-1])
+		}
+	}
+
+	//commiting changes
+	message := []string{"commit", "-m"}
+	if len(args) > 0 {
+		for _, arg := range args {
+			message = append(message, arg)
+		}
+	}
+	message[2] = "'" + message[2]
+	message[len(message)-1] = message[len(message)-1] + "'"
+	log.Warnf("%s", message)
+	kiscica, err := exec.Command("git", message...).Output()
+	if err != nil {
+		log.Printf("itt")
+		log.Printf("%s", kiscica)
+		return err
+	}
+
+	fmt.Print("The following files were added: ")
+	log.Warnf("%s", addedFiles)
+	fmt.Print("You changed these files: ")
+	log.Warnf("%s", modifiedFiles)
+	fmt.Print("You committed them with the following message: ")
+	log.Successf("%s", message[1:])
+	return nil
+}
+
+//Cica ...
+func Cica(args ...string) error {
+	return nil
+}
