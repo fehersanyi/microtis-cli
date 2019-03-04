@@ -25,19 +25,7 @@ func Holvagyok() error {
 		}
 	}
 
-	//fetching branch
-	var branch string
-	cmd, err := exec.Command("git", "branch").Output()
-	if err != nil {
-		return err
-	}
-	branches := strings.Split(string(cmd), "\n")
-	for _, line := range branches {
-		if strings.Contains(line, "*") {
-			l := strings.Split(line, " ")
-			branch = l[len(l)-1]
-		}
-	}
+	b, err := branch()
 	//fetch local path
 	path, err := exec.Command("pwd").Output()
 	if err != nil {
@@ -49,7 +37,7 @@ func Holvagyok() error {
 	fmt.Print("repository: ")
 	log.Infof(repository)
 	fmt.Print("branch: ")
-	log.Infof(branch)
+	log.Infof(b)
 	return nil
 }
 
@@ -98,6 +86,34 @@ func Kiscica(args []string) error {
 }
 
 //Cica ...
-func Cica(args ...string) error {
+func Cica(args []string) error {
+	if err := Kiscica(args); err != nil {
+		return err
+	}
+	b, err := branch()
+	if err != nil {
+		return nil
+	}
+	_, err = exec.Command("git", "push", "origin", b).Output()
+	if err != nil {
+		return err
+	}
+	log.Successf("Succesfully pushed to %s", b)
 	return nil
+}
+
+func branch() (string, error) {
+	var branch string
+	cmd, err := exec.Command("git", "branch").Output()
+	if err != nil {
+		return "", err
+	}
+	branches := strings.Split(string(cmd), "\n")
+	for _, line := range branches {
+		if strings.Contains(line, "*") {
+			l := strings.Split(line, " ")
+			branch = l[len(l)-1]
+		}
+	}
+	return branch, nil
 }
