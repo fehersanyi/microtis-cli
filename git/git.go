@@ -78,14 +78,9 @@ func Kiscica(args []string) error {
 	}
 
 	//commiting changes
+	cm := strings.Join(args, " ")
 	message := []string{"commit", "-m"}
-	if len(args) > 0 {
-		for _, arg := range args {
-			message = append(message, arg)
-		}
-	}
-	message[2] = "'" + message[2]
-	message[len(message)-1] = message[len(message)-1] + "'"
+	message = append(message, cm)
 	log.Warnf("%s", message)
 	kiscica, err := exec.Command("git", message...).Output()
 	if err != nil {
