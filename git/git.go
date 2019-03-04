@@ -81,7 +81,6 @@ func Kiscica(args []string) error {
 	cm := strings.Join(args, " ")
 	message := []string{"commit", "-m"}
 	message = append(message, cm)
-	log.Warnf("%s", message)
 	kiscica, err := exec.Command("git", message...).Output()
 	if err != nil {
 		log.Printf("itt")
@@ -94,7 +93,7 @@ func Kiscica(args []string) error {
 	fmt.Print("You changed these files: ")
 	log.Warnf("%s", modifiedFiles)
 	fmt.Print("You committed them with the following message: ")
-	log.Successf("%s", message[1:])
+	log.Successf("%s", message[2:])
 	return nil
 }
 
