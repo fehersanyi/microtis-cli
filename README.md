@@ -1,2 +1,13 @@
-"git kiscica [commit msg]" ami git add . es git commitol,
-"git cica [commit msg]" ami meg git kiscica && git push-ol
+	███╗   ███╗██╗ ██████╗██████╗  ██████╗ ████████╗██╗███████╗
+	████╗ ████║██║██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝██║██╔════╝
+	██╔████╔██║██║██║     ██████╔╝██║   ██║   ██║   ██║███████╗
+	██║╚██╔╝██║██║██║     ██╔══██╗██║   ██║   ██║   ██║╚════██║
+	██║ ╚═╝ ██║██║╚██████╗██║  ██║╚██████╔╝   ██║   ██║███████║
+	╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝╚══════╝
+
+
+microtis [command] [args...]
+
+microtis holvagyok // will print the current repo and branch
+microtis kiscica [args] will add . and commit
+microtis cica [args] will kiscica and push
