@@ -21,7 +21,16 @@ var rootCmd = &cobra.Command{
 	╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝╚══════╝
 																														 
 	
-	version: 0.0.1
+	version: 0.0.2
+
+	-----------------------------------------------------------
+					DO NOT BELIEVE THE COBRA INIT USAGE PARAMS
+
+	usage: 
+
+		microtis [command] [params]
+
+	and not microtis.cli...
 `,
 }
 
