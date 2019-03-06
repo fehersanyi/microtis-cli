@@ -71,7 +71,6 @@ func Kiscica(args []string) error {
 	message = append(message, cm)
 	kiscica, err := exec.Command("git", message...).Output()
 	if err != nil {
-		log.Printf("itt")
 		log.Printf("%s", kiscica)
 		return err
 	}
