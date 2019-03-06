@@ -24,7 +24,7 @@ var rootCmd = &cobra.Command{
 	version: 0.0.2
 
 	-----------------------------------------------------------
-					DO NOT BELIEVE THE COBRA INIT USAGE PARAMS
+		DO NOT BELIEVE THE COBRA INIT USAGE PARAMS
 
 	usage: 
 
