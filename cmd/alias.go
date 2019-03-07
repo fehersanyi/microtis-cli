@@ -42,7 +42,10 @@ func setAlias(alias string) error {
 func setFile(file, alias string) error {
 	s, err := ioutil.ReadFile(file)
 	if err != nil {
-		return err
+		if err.Error() == fmt.Sprintf(`open %s: no such file or directory`, file) {
+			exec.Command("touch", file)
+			setFile(file, alias)
+		}
 	}
 	set := fmt.Sprintf("alias %s=/usr/local/bin/\"microtis\"\n", alias)
 	d := string(s) + set
