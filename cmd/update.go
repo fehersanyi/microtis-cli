@@ -28,6 +28,9 @@ var updateCmd = &cobra.Command{
 		if err := makeDir(home + "/.microtis"); err != nil {
 			log.Errorf("failed to create directory: %s", err)
 		}
+		if err := touchBashProfile(home); err != nil {
+			log.Errorf("failed to create bash_profile %s", err)
+		}
 		if err := move(os, home); err != nil {
 			log.Errorf("failed to move binary %s", err)
 		}
@@ -117,15 +120,20 @@ func home() string {
 	home := os.Getenv("HOME")
 	return home
 }
-func pathExport(home string) error {
-	log.Infof("Exporting PATH")
-	bashProfile := home + "/.bash_profile"
-	if _, err := os.Stat(bashProfile); os.IsNotExist(err) {
+
+func touchBashProfile(home string) error {
+	if _, err := os.Stat(home + "/.bash_profile"); os.IsNotExist(err) {
 		_, err := exec.Command("touch", "~/.bash_profile").Output()
 		if err != nil {
 			return err
 		}
 	}
+	return nil
+}
+func pathExport(home string) error {
+	log.Infof("Exporting PATH")
+	bashProfile := home + "/.bash_profile"
+
 	profile, err := ioutil.ReadFile(bashProfile)
 	if err != nil {
 		return err
