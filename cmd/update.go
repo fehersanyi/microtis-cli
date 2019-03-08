@@ -123,7 +123,7 @@ func home() string {
 
 func touchBashProfile(home string) error {
 	if _, err := os.Stat(home + "/.bash_profile"); os.IsNotExist(err) {
-		_, err := exec.Command("touch", "~/.bash_profile").Output()
+		_, err := exec.Command("touch", home+"/.bash_profile").Output()
 		if err != nil {
 			return err
 		}
