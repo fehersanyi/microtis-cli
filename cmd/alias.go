@@ -28,14 +28,44 @@ func init() {
 	rootCmd.AddCommand(aliasCmd)
 }
 
+func fileChecker(path string) error {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		_, err := os.Create(path)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func setAlias(alias string) error {
 	home := os.Getenv("HOME")
 	bashProfile := home + "/.bash_profile"
 	profile := home + "/.zprofile"
-	setFile(bashProfile, alias)
-	sourcing(bashProfile)
-	setFile(profile, alias)
-	sourcing(profile)
+	if err := fileChecker(bashProfile); err != nil {
+		fmt.Println("filecheck bash profile")
+		return err
+	}
+	if err := fileChecker(profile); err != nil {
+		fmt.Println("filecheck profile")
+		return err
+	}
+	if err := setFile(bashProfile, alias); err != nil {
+		fmt.Println("file write bash profile")
+		return err
+	}
+	if err := sourcing(bashProfile); err != nil {
+		fmt.Println("source bash profile")
+		return err
+	}
+	if err := setFile(profile, alias); err != nil {
+		fmt.Println("file write profile")
+		return err
+	}
+	if err := sourcing(profile); err != nil {
+		fmt.Println("source profile")
+		return err
+	}
 	return nil
 }
 
@@ -47,14 +77,14 @@ func setFile(file, alias string) error {
 			setFile(file, alias)
 		}
 	}
-	set := fmt.Sprintf("alias %s=/usr/local/bin/\"microtis\"\n", alias)
+	set := fmt.Sprintf("alias %s=~/\".microtis/microtis\"\n", alias)
 	d := string(s) + set
 	ioutil.WriteFile(file, []byte(d), 777)
 	return nil
 }
 
 func sourcing(file string) error {
-	_, err := exec.Command("source", file).Output()
+	_, err := exec.Command("bash", "-c", "source", file).Output()
 	if err != nil {
 		return err
 	}
