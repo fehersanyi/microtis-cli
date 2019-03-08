@@ -120,6 +120,12 @@ func home() string {
 func pathExport(home string) error {
 	log.Infof("Exporting PATH")
 	bashProfile := home + "/.bash_profile"
+	if _, err := os.Stat(bashProfile); os.IsNotExist(err) {
+		_, err := exec.Command("touch", "~/.bash_profile").Output()
+		if err != nil {
+			return err
+		}
+	}
 	profile, err := ioutil.ReadFile(bashProfile)
 	if err != nil {
 		return err
