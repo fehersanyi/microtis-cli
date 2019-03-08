@@ -54,18 +54,18 @@ func setAlias(alias string) error {
 		fmt.Println("file write bash profile")
 		return err
 	}
-	if err := sourcing(bashProfile); err != nil {
-		fmt.Println("source bash profile")
-		return err
-	}
+	// if err := sourcing(bashProfile); err != nil {
+	// 	fmt.Println("source bash profile")
+	// 	return err
+	// }
 	if err := setFile(profile, alias); err != nil {
 		fmt.Println("file write profile")
 		return err
 	}
-	if err := sourcing(profile); err != nil {
-		fmt.Println("source profile")
-		return err
-	}
+	// if err := sourcing(profile); err != nil {
+	// 	fmt.Println("source profile")
+	// 	return err
+	// }
 	return nil
 }
 
@@ -77,7 +77,7 @@ func setFile(file, alias string) error {
 			setFile(file, alias)
 		}
 	}
-	set := fmt.Sprintf("alias %s=~/\".microtis/microtis\"\n", alias)
+	set := fmt.Sprintf("alias %s=~/.microtis/microtis\n", alias)
 	d := string(s) + set
 	ioutil.WriteFile(file, []byte(d), 777)
 	return nil
