@@ -26,18 +26,3 @@ func Test_getLocation(t *testing.T) {
 		})
 	}
 }
-
-// func Test_getLocation(t *testing.T) {
-// 	want := "/Users/fehersandor/go/src/github.com/fehersanyi/microtis-cli/star_gate"
-// 	empty := ""
-// 	got, e := getLocation()
-// 	if e != nil {
-// 		t.Error(e)
-// 	}
-// 	if strings.TrimSpace(got) != strings.TrimSpace(want) {
-// 		t.Errorf("what I got : %s is not equal to what I wanted: %s", got, want)
-// 	}
-// 	if strings.TrimSpace(got) == empty {
-// 		t.Errorf("what I got is empty :( %s", got)
-// 	}
-// }

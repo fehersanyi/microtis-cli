@@ -7,7 +7,17 @@ import (
 )
 
 //Jump will cd into a given directory
-func Jump() {}
+func Jump(alias string) error {
+	path, err := readMap(alias)
+	if err != nil {
+		return err
+	}
+	_, err = exec.Command("cd", path).Output()
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 //CheckPoint will mark a directory
 func CheckPoint(alias string) error {
@@ -41,7 +51,7 @@ func createMap() error {
 this shall read the .map file and return a path
 based on the input
 */
-func readMap(dir string) (string, error) {
+func readMap(alias string) (string, error) {
 	mapFile, err := ioutil.ReadFile("~/.microtis/.map")
 	path := ""
 	if err != nil {
@@ -50,7 +60,7 @@ func readMap(dir string) (string, error) {
 	lines := strings.Split(string(mapFile), "\n")
 	if len(lines) > 0 {
 		for _, line := range lines {
-			if strings.Contains(line, dir) {
+			if strings.Contains(line, alias) {
 				p := strings.Split(line, "=")
 				path = p[1]
 			}
