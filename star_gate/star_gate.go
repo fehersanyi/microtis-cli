@@ -1,32 +1,76 @@
 package stargate
 
-import "os/exec"
+import (
+	"io/ioutil"
+	"os/exec"
+	"strings"
+)
 
 //Jump will cd into a given directory
 func Jump() {}
 
 //CheckPoint will mark a directory
-func CheckPoint() {}
+func CheckPoint(alias string) error {
+	if err := createMap(); err != nil {
+		return err
+	}
+	path, err := getLocation()
+	if err != nil {
+		return err
+	}
+	if err := recordLocation(alias, path); err != nil {
+		return err
+	}
+	return nil
+}
 
 /*
 this will make a .map file
 that will hold the checkpoints with a
 name=pwd fomat
 */
-func createMap() {}
+func createMap() error {
+	_, err := exec.Command("touch", "~/.microtis/.map").Output()
+	if err != nil {
+		return err
+	}
+	return err
+}
 
 /*
 this shall read the .map file and return a path
 based on the input
 */
-func readMap() {}
+func readMap(dir string) (string, error) {
+	mapFile, err := ioutil.ReadFile("~/.microtis/.map")
+	path := ""
+	if err != nil {
+		return "", err
+	}
+	lines := strings.Split(string(mapFile), "\n")
+	if len(lines) > 0 {
+		for _, line := range lines {
+			if strings.Contains(line, dir) {
+				p := strings.Split(line, "=")
+				path = p[1]
+			}
+		}
+	}
+	return path, err
+}
 
 /*
 this will write the given path to the .bash_profile
 it is important to log out that after this you need to
 source ~/.bash_profile !!!!
 */
-func recordLocation() {}
+func recordLocation(alias, dir string) error {
+	data := []byte(alias + "=" + dir + "\n")
+	if err := ioutil.WriteFile("~/.microtis/.map", data, 777); err != nil {
+		return err
+	}
+	return nil
+}
 
 // thisl will get the current location
 func getLocation() (string, error) {
