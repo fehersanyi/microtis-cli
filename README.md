@@ -17,7 +17,7 @@ to update it later you can run the update command, and it will get the latest ve
 
 ### or simply copy to terminal ###
 
-#### for mac #### 🍎
+#### for mac 🍎
 
 ```
 touch ~/.bash_profile
@@ -28,7 +28,7 @@ rm -rf ./bin
 source ~/.bash_profile
 ```
 
-#### for linux #### 🐧
+#### for linux 🐧
 
 ```
 touch ~/.bash_profile
@@ -39,7 +39,7 @@ rm -rf ./bin
 source ~/.bash_profile
 ```
 
-#### for windows #### 💩
+#### for windows 💩
 
 https://www.ubuntu.com/download
 
