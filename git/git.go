@@ -93,7 +93,7 @@ func Kiscica(args []string) error {
 	}
 
 	fmt.Print("You committed them with the following message: ")
-	log.Donef("%s", message[2:])
+	log.Infof("%s", message[2:])
 	return nil
 }
 
