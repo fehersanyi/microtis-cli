@@ -15,7 +15,7 @@ var rootCmd = &cobra.Command{
 	Short: "CLI app for microtis business",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		version := "0.1.0"
+		version := "0.1.1"
 		fmt.Println(`
 	███╗   ███╗██╗ ██████╗██████╗  ██████╗ ████████╗██╗███████╗
 	████╗ ████║██║██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝██║██╔════╝
