@@ -81,15 +81,15 @@ func Kiscica(args []string) error {
 	}
 	if len(addedFiles) > 0 {
 		fmt.Print("The following files were added: ")
-		log.Successf("%s", addedFiles)
+		log.Successf("%s", strings.Join(addedFiles, ", "))
 	}
 	if len(modifiedFiles) > 0 {
 		fmt.Print("You changed these files: ")
-		log.Warnf("%s", modifiedFiles)
+		log.Warnf("%s", strings.Join(modifiedFiles, ", "))
 	}
 	if len(deletedFiles) > 0 {
 		fmt.Print("You deleted these files: ")
-		log.Errorf("%s", deletedFiles)
+		log.Errorf("%s", strings.Join(deletedFiles, ", "))
 	}
 
 	fmt.Print("You committed them with the following message: ")
