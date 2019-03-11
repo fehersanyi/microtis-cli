@@ -1,5 +1,7 @@
 package stargate
 
+import "os/exec"
+
 //Jump will cd into a given directory
 func Jump() {}
 
@@ -25,3 +27,12 @@ it is important to log out that after this you need to
 source ~/.bash_profile !!!!
 */
 func recordLocation() {}
+
+// thisl will get the current location
+func getLocation() (string, error) {
+	path, err := exec.Command("pwd").Output()
+	if err != nil {
+		return string(path), err
+	}
+	return string(path), nil
+}
