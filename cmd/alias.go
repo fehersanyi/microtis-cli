@@ -74,12 +74,16 @@ func setFile(file, alias string) error {
 	if err != nil {
 		if err.Error() == fmt.Sprintf(`open %s: no such file or directory`, file) {
 			exec.Command("touch", file)
-			setFile(file, alias)
+			if err := setFile(file, alias); err != nil {
+				return err
+			}
 		}
 	}
 	set := fmt.Sprintf("alias %s=~/.microtis/microtis\n", alias)
 	d := string(s) + set
-	ioutil.WriteFile(file, []byte(d), 777)
+	if err := ioutil.WriteFile(file, []byte(d), 777); err != nil {
+		return err
+	}
 	return nil
 }
 

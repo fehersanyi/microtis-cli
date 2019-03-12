@@ -15,7 +15,7 @@ var rootCmd = &cobra.Command{
 	Short: "CLI app for microtis business",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		version := "0.1.0"
+		version := "0.2"
 		fmt.Println(`
 	███╗   ███╗██╗ ██████╗██████╗  ██████╗ ████████╗██╗███████╗
 	████╗ ████║██║██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝██║██╔════╝
@@ -38,6 +38,8 @@ var rootCmd = &cobra.Command{
 		fmt.Println("		cica			will kiscica and push to the current branch, commit message will be the argument list you provide")
 		fmt.Println("		alias			the binary name is long, with this you can add an alias to make your work easier")
 		fmt.Println("		update			will update to the latest version of the app")
+		fmt.Println("		checkin			will save your current location with the given arg as an alias")
+		fmt.Println("		jump			will jump into the saved directory you specify by the argument")
 		fmt.Println()
 		fmt.Print("this cli app was created by ")
 		log.Infof("Sandor Feher")
