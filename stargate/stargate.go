@@ -121,3 +121,21 @@ func getHome() string {
 	home := os.Getenv("HOME")
 	return home
 }
+
+//ListMap will print out thhe content of mapfile
+func ListMap() ([]string, error) {
+	home := getHome()
+	mapfile := ".microtis/mapfile"
+	mapFile, err := ioutil.ReadFile(filepath.Join(home, mapfile))
+	if err != nil {
+		return nil, err
+	}
+	gates := strings.Split(string(mapFile), "\n")
+	var trueGates []string
+	for i := 0; i < len(gates); i++ {
+		if gates[i] != "" {
+			trueGates = append(trueGates, gates[i])
+		}
+	}
+	return trueGates, nil
+}
